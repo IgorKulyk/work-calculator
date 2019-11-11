@@ -1,7 +1,7 @@
 import React from "react";
 
-import RecordCreator from './RecordCreator'
-import RecordsTable from './RecordsTable'
+import RecordCreator from "./RecordCreator";
+import RecordsTable from "./RecordsTable";
 import WorkCounter from "./WorkCounter";
 import Header from "./Header";
 

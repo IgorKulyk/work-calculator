@@ -22,7 +22,6 @@ class RecordsTable extends React.Component {
             >
               Delete
             </button>
-            <button className="ui primary button">Edit</button>
           </td>
         </tr>
       );

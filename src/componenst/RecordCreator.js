@@ -18,67 +18,75 @@ class RecordCreator extends React.Component {
   };
 
   handleInputChange = event => {
-    event.preventDefault();
+    // event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  onInputChange = value => {
-    console.log(value);
-  };
-
   onSubmit = () => {
-    let salary = this.state.salary;
-    let workTime = this.minuteCounter(this.state.end, this.state.start);
-    let totalPayment = this.moneyCounter(workTime, salary);
-    this.props.createWork({ ...this.state, workTime, totalPayment });
+    const { start, end, location, city, salary } = this.state;
+    if (start && end && location && city && salary) {
+      let workTime = this.minuteCounter(end, start);
+      let totalPayment = this.moneyCounter(workTime, salary);
+      this.props.createWork({ ...this.state, workTime, totalPayment });
+    }
   };
 
   render() {
     return (
       <div className="ui celled list">
-        <div className="ui grid">
-          <div className="four wide column">Start time:</div>
-          <div className="twelve wide column">
+        <form
+          className="ui form"
+          onSubmit={e => {
+            e.preventDefault();
+          }}
+        >
+          <div className="required field">
+            <label>Start Time</label>
             <input
               type="datetime-local"
               name="start"
               onChange={this.handleInputChange}
             />
           </div>
-          <div className="four wide column">End time:</div>
-          <div className="twelve wide column">
+          <div className="required field">
+            <label>End Time</label>
             <input
               type="datetime-local"
               name="end"
               onChange={this.handleInputChange}
             />
           </div>
-          <div className="four wide column">Location:</div>
-          <div className="twelve wide column">
+          <div className="required field">
+            <label>Location</label>
             <input
               type="text"
               name="location"
+              placeholder="Name of location"
               onChange={this.handleInputChange}
             />
           </div>
-          <div className="four wide column">City:</div>
-          <div className="twelve wide column">
-            <input type="text" name="city" onChange={this.handleInputChange} />
+          <div className="required field">
+            <label>City</label>
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              onChange={this.handleInputChange}
+            />
           </div>
-          <div className="four wide column">Salary per hour:</div>
-          <div className="twelve wide column">
+          <div className="required field">
+            <label>Salary per hour</label>
             <input
               type="text"
               name="salary"
+              placeholder="NIS"
               onChange={this.handleInputChange}
             />
           </div>
-          <div className="sixteen wide column">
-            <button className="ui button green" onClick={this.onSubmit}>
-              Save
-            </button>
-          </div>
-        </div>
+          <button className="ui button green" onClick={this.onSubmit}>
+            Save
+          </button>
+        </form>
       </div>
     );
   }
