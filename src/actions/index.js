@@ -1,3 +1,16 @@
+export const signIn = userId => {
+  return {
+    type: "SIGN_IN",
+    payload: userId
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: "SIGN_OUT"
+  };
+};
+
 export const createWork = work => {
   return { type: "CREATE_WORK", payload: work };
 };

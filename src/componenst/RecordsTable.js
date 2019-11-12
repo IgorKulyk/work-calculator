@@ -13,7 +13,7 @@ class RecordsTable extends React.Component {
             {record.location}, {record.city}
           </td>
           <td data-label="Time">
-            {record.workTime}
+            {`${Math.floor(record.workTime / 60)}: ${record.workTime % 60}`}
           </td>
           <td data-label="Action">
             <button
@@ -37,7 +37,7 @@ class RecordsTable extends React.Component {
               <th>Start</th>
               <th>End</th>
               <th>Location</th>
-              <th>Work time, min</th>
+              <th>Work time</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -52,7 +52,4 @@ const mapStateToProps = state => {
   return { records: state.records };
 };
 
-export default connect(
-  mapStateToProps,
-  { deleteWork }
-)(RecordsTable);
+export default connect(mapStateToProps, { deleteWork })(RecordsTable);
