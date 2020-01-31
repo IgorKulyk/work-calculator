@@ -1,9 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteWork } from "../actions";
+import { deleteWork, fetchWorks } from "../actions";
 
 class RecordsTable extends React.Component {
+  componentDidMount() {
+    this.props.fetchWorks();
+  }
+
   renderList() {
+    if(this.props.records.length === 0){
+      return null
+    } else
     return this.props.records.map((record, index) => {
       return (
         <tr key={index}>
@@ -18,7 +25,7 @@ class RecordsTable extends React.Component {
           <td data-label="Action">
             <button
               className="ui button red"
-              onClick={() => this.props.deleteWork(index)}
+              onClick={() => this.props.deleteWork(record.id)}
             >
               Delete
             </button>
@@ -26,6 +33,12 @@ class RecordsTable extends React.Component {
         </tr>
       );
     });
+  }
+
+  onDeletePress(id) {
+    this.props.deleteWork(id);
+    this.forceUpdate()
+    //onClick={() => this.props.deleteWork(record.id)}
   }
 
   render() {
@@ -49,7 +62,9 @@ class RecordsTable extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { records: state.records };
+  return { records: Object.values(state.records) };
 };
 
-export default connect(mapStateToProps, { deleteWork })(RecordsTable);
+export default connect(mapStateToProps, { deleteWork, fetchWorks })(
+  RecordsTable
+);

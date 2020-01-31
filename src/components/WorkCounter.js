@@ -1,8 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { fetchWorks } from "../actions/index";
 
 class WorkCounter extends React.Component {
-  timeCounter = () => {
+  componentDidMount() {
+    this.props.fetchWorks();
+  }
+
+  timeCounter = () => {   
     if (this.props.records.length === 0) {
       return [0, 0];
     } else {
@@ -53,7 +58,7 @@ class WorkCounter extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { records: state.records };
+  return { records: Object.values(state.records) };
 };
 
-export default connect(mapStateToProps)(WorkCounter);
+export default connect(mapStateToProps, { fetchWorks })(WorkCounter);
